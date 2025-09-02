@@ -7,7 +7,6 @@ export default function Header() {
 
   return (
     <header className={style.header}>
-      <h1 className={style.header_title}>{t('test_key')}</h1>
       <div className={style.header_lang}>
         <p className={style.header_lang_title}>{t('change_lang')}</p>
         <LanguageSwitcher />
