@@ -1,0 +1,28 @@
+'use client';
+
+import { usePathname, useRouter } from 'next/navigation';
+import { routing } from '@/i18n/routing';
+import { useState } from 'react';
+
+export default function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [locale, setLocale] = useState(currentLocale);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newLocale = e.target.value;
+    setLocale(newLocale);
+    const newPath = pathname.replace(`/${currentLocale}`, `/${newLocale}`);
+    router.push(newPath);
+  };
+
+  return (
+    <select id="lang" className="select_language" value={locale} onChange={handleChange}>
+      {routing.locales.map((lang) => (
+        <option key={lang} value={lang}>
+          {lang.toUpperCase()}
+        </option>
+      ))}
+    </select>
+  );
+}
