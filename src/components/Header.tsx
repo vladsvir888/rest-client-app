@@ -1,15 +1,16 @@
 import { useTranslations } from 'next-intl';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import style from './style/Header.module.css';
 
-export default function Header({ params }: { params: { locale: string } }) {
+export default function Header() {
   const t = useTranslations();
 
   return (
-    <header className="header">
-      <h1 className="header_title">{t('test_key')}</h1>
-      <div className="header_lang">
-        <p className="header_lang-title">{t('change_lang')}</p>
-        <LanguageSwitcher currentLocale={params.locale} />
+    <header className={style.header}>
+      <h1 className={style.header_title}>{t('test_key')}</h1>
+      <div className={style.header_lang}>
+        <p className={style.header_lang_title}>{t('change_lang')}</p>
+        <LanguageSwitcher />
       </div>
     </header>
   );

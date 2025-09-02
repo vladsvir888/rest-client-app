@@ -2,11 +2,13 @@
 
 import { usePathname, useRouter } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import { useLocale } from 'next-intl';
 import { useState } from 'react';
 
-export default function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
+export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
+  const currentLocale = useLocale();
   const [locale, setLocale] = useState(currentLocale);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

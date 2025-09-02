@@ -1,19 +1,9 @@
-import { useTranslations } from 'next-intl';
-import LanguageSwitcher from '@/components/LanguageSwitcher';
 import Header from '@/components/Header';
 
-export default function HomePage({
-  params,
-  children,
-}: {
-  params: { locale: string };
-  children: React.ReactNode;
-}) {
-  const t = useTranslations();
-
+export default function HomePage({ children }: { children: React.ReactNode }) {
   return (
     <div className="container">
-      <Header params={params} />
+      <Header />
       <main className="main">{children}</main>
     </div>
   );

@@ -40,23 +40,6 @@ a {
   max-width: 1400px;
 }
 
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.header_title {
-  margin-right: 20px;
-}
-
-.header_lang {
-  text-align: center;
-}
-.header_lang-title {
-  margin-bottom: 4px;
-}
-
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
