@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import Header from '@/components/Header';
 
 export default function HomePage({
   params,
@@ -12,14 +13,7 @@ export default function HomePage({
 
   return (
     <div className="container">
-      <header className="header">
-        <h1 className="header_title">{t('test_key')}</h1>
-        <div className="header_lang">
-          <p className="header_lang-title">{t('change_lang')}</p>
-          <LanguageSwitcher currentLocale={params.locale} />
-        </div>
-      </header>
-
+      <Header params={params} />
       <main className="main">{children}</main>
     </div>
   );
