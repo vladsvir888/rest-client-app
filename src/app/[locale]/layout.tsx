@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Metadata } from 'next';
-
+import { AntdRegistry } from '@ant-design/nextjs-registry';
 import '../globals.css';
 import Header from '@/components/Header';
 
@@ -36,8 +36,10 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextIntlClientProvider>
-          <Header />
-          {children}
+          <AntdRegistry>
+            <Header />
+            {children}
+          </AntdRegistry>
         </NextIntlClientProvider>
       </body>
     </html>

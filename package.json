@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ant-design/nextjs-registry": "^1.1.0",
+    "antd": "^5.27.2",
     "next": "15.5.2",
     "next-intl": "^4.3.5",
     "react": "19.1.0",
