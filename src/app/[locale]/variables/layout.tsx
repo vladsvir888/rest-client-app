@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Metadata } from 'next';
-import '../globals.css';
 
 type Props = {
   children: React.ReactNode;

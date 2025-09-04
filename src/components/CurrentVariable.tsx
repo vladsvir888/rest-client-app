@@ -2,40 +2,47 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { Table } from 'antd';
+
+type VariableRecord = {
+  key: string;
+  variable: string;
+  value: string;
+};
 
 export default function CurrentVariable({ authUser }: { authUser: string }) {
   const t = useTranslations();
-  const [listVar, setListVar] = useState<Record<string, string>>({});
+  const [listVar, setListVar] = useState<VariableRecord[]>([]);
 
   useEffect(() => {
-    const raw = localStorage.getItem(`variale-${authUser}`);
+    const raw = localStorage.getItem(`variable-${authUser}`);
     if (raw) {
       try {
-        setListVar(JSON.parse(raw));
+        const parsed: Record<string, string> = JSON.parse(raw);
+        const formatted = Object.entries(parsed).map(([key, value]) => ({
+          key,
+          variable: key,
+          value,
+        }));
+        setListVar(formatted);
       } catch (err) {
-        console.log('Error parse variable', err);
+        console.error('Error parse variable', err);
       }
     }
   }, [authUser]);
 
-  const curVariable = Object.entries(listVar);
+  const columns = [
+    {
+      title: t('key_variable'),
+      dataIndex: 'variable',
+      key: 'variable',
+    },
+    {
+      title: t('value_variable'),
+      dataIndex: 'value',
+      key: 'value',
+    },
+  ];
 
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th>{t('key_variable')}</th>
-          <th>{t('value_variable')}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {curVariable.map(([key, value]) => (
-          <tr key={key}>
-            <td>{key}</td>
-            <td>{value}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+  return <Table dataSource={listVar} columns={columns} />;
 }
