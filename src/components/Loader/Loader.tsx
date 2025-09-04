@@ -1,10 +1,9 @@
-import { FC } from 'react';
-import styles from './Loader.module.css';
+import cls from './Loader.module.css';
 
-export const Loader: FC = () => {
+export const Loader = () => {
   return (
-    <div className={styles.wrapper}>
-      <span className={styles.loader}></span>
+    <div className={cls.wrapper}>
+      <span className={cls.loader}></span>
     </div>
   );
 };
