@@ -1,3 +1,5 @@
 {
-  "change_lang": "choose language"
+  "change_lang": "choose language",
+  "key_variable": "Variable name",
+  "value_variable": "Variable value"
 }
