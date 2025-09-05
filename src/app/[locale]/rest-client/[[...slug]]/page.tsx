@@ -18,7 +18,7 @@ export default async function Page({
   if (slug === undefined || !methods.includes(slug[0])) {
     const headersList = await headers();
     const fullUrl = headersList.get('link')?.split('; ')[0].slice(1, -1);
-    const pathSegments = parseUrl(fullUrl || '').pathSegments;
+    const pathSegments = (await parseUrl(fullUrl || '')).pathSegments;
 
     redirect(`/${pathSegments[0]}/${pathSegments[1]}/GET`);
   }

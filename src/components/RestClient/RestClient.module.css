@@ -1,0 +1,10 @@
+.wrapper {
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  word-wrap: break-word;
+}

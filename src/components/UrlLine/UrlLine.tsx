@@ -1,13 +1,17 @@
-'use client';
-
-import { methods } from '@/consts/rest-client';
+import { Search } from './Search';
+import { SelectClient } from './SelectClient';
 import cls from './UrlLine.module.css';
 
-const selects = [...methods].map((method) => ({
-  value: method,
-  label: method,
-}));
-
 export const UrlLine = () => {
-  return <>Url</>;
+  const url = encodeURIComponent('фыв');
+  const url1 = decodeURIComponent('фыв');
+  //const url2 = atob('фыв');
+  //const url3 = btoa('фыв');
+
+  return (
+    <div>
+      <SelectClient />
+      <Search />
+    </div>
+  );
 };
