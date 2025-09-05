@@ -1,5 +1,8 @@
 {
   "change_lang": "Выберите язык",
   "key_variable": "Название переменной",
-  "value_variable": "Значение переменной"
+  "value_variable": "Значение переменной",
+  "variables_page_title": "Страница с переменными",
+  "create_variable": "Создать переменную",
+  "form_title": "Добавить переменную"
 }

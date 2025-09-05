@@ -1,0 +1,9 @@
+.form_variable {
+  display: flex;
+  flex-direction: column;
+  gap: 8;
+  margin: 10px 0 50px;
+}
+.form_title {
+  margin-top: 20px;
+}
