@@ -3,16 +3,17 @@ import { Input, Select, Typography } from 'antd';
 import cls from './Body.module.css';
 import { FC, use, useCallback, useEffect, useRef, useState } from 'react';
 import { RestClientContext } from '../RestClientProvider/RestClientProvider';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { validation } from '@/lib/validation';
+import { useTranslations } from 'next-intl';
 
 interface BodyProps {
   body: string;
 }
 
 const updateQuery = (search: string, value: string) => {
-  let query = '';
-  if (query.includes('Content-Type')) {
+  let query = search;
+  if (search.includes('Content-Type')) {
     query = query
       .split('&')
       .map((el) => {
@@ -31,23 +32,38 @@ const updateQuery = (search: string, value: string) => {
 export const Body: FC<BodyProps> = ({ body }) => {
   const { setErrorBody } = use(RestClientContext);
   const [error, setError] = useState('');
-  const [inputBody, setInputBody] = useState(decodeURIComponent(atob(body)));
+  const [inputBody, setInputBody] = useState(decodeURIComponent(atob(body ?? '')));
   const [showBody, setShowBody] = useState(!!body);
+  const [jsonError, setJsonError] = useState(false);
+  const [first, setFirst] = useState(true);
   const [selectBody, setSelectBody] = useState('none');
   const timerId = useRef<NodeJS.Timeout | null>(null);
-  const path = usePathname();
   const searchParams = useSearchParams();
+  const t = useTranslations('restClient');
 
   const changeUrl = useCallback(
-    (path: string, query: string, input: string = inputBody) => {
+    (query: string, input?: string) => {
       if (timerId.current) {
         clearTimeout(timerId.current);
       }
       timerId.current = setTimeout(() => {
-        const pathArr = path.split('/');
+        const pathArr = window.location.href.split('/');
+
         const variables = localStorage.getItem('asd') || '{ "фыв": "{{BAR}}" }';
-        const res = validation(path, input, 'body', query, JSON.parse(variables));
+        const res = validation(
+          '',
+          input ?? atob(pathArr[7].split('?')[0]),
+          'body',
+          query,
+          JSON.parse(variables)
+        );
         let result = '';
+
+        if (res?.type === 'json') {
+          setJsonError(true);
+        } else {
+          setJsonError(false);
+        }
 
         if (res?.error) {
           setErrorBody?.(true);
@@ -62,13 +78,13 @@ export const Body: FC<BodyProps> = ({ body }) => {
         window.history.replaceState(
           {},
           '',
-          `/${pathArr[1]}/rest-client/${pathArr[3]}/${pathArr[4] ? pathArr[4] : ''}/${btoa(
+          `/${pathArr[3]}/rest-client/${pathArr[5]}/${pathArr[6] ? pathArr[6] : ''}/${btoa(
             encodeURIComponent(result)
           )}${query ? '?' + query : ''}`
         );
       }, 300);
     },
-    [inputBody, setErrorBody]
+    [setErrorBody]
   );
 
   const handleSelectBody = useCallback(
@@ -96,9 +112,9 @@ export const Body: FC<BodyProps> = ({ body }) => {
         query = updateQuery(query, 'text%2Fhtml');
       }
 
-      changeUrl(path, query);
+      changeUrl(query);
     },
-    [changeUrl, path, searchParams, setErrorBody]
+    [changeUrl, searchParams, setErrorBody]
   );
 
   useEffect(() => {
@@ -107,37 +123,45 @@ export const Body: FC<BodyProps> = ({ body }) => {
     if (query) {
       if (query.includes('json')) {
         handleSelectBody('json');
+        if (first) {
+          setFirst(false);
+          try {
+            setInputBody(JSON.stringify(JSON.parse(decodeURIComponent(atob(body))), null, 4));
+          } catch {
+            setInputBody('');
+          }
+        }
       }
       if (query.includes('text')) {
         handleSelectBody('text');
       }
+    } else {
+      handleSelectBody('none');
     }
-  }, [handleSelectBody, searchParams]);
+  }, [body, first, handleSelectBody, searchParams]);
 
   const handleInputBody = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setInputBody(value);
 
-    changeUrl(path, searchParams.toString(), value);
+    changeUrl(searchParams.toString(), value);
   };
 
   return (
     <div className={cls.wrapper}>
-      {' '}
       <div className={cls.tittle}>
-        {' '}
-        <h3>{'body'}: </h3>{' '}
+        <h3>{t('body')}: </h3>
         <Select
           value={selectBody}
           className={cls.select}
           onChange={handleSelectBody}
           options={[
-            { value: 'none', label: `none` },
+            { value: 'none', label: `${t('none')}` },
             { value: 'json', label: 'JSON' },
             { value: 'text', label: 'Text' },
           ]}
-        />{' '}
-      </div>{' '}
+        />
+      </div>
       {showBody && (
         <Input.TextArea
           status={error ? 'error' : ''}
@@ -146,8 +170,11 @@ export const Body: FC<BodyProps> = ({ body }) => {
           value={inputBody}
           onChange={handleInputBody}
         />
-      )}{' '}
-      <Typography.Text type="danger"> &nbsp; {error} </Typography.Text>{' '}
+      )}
+      <Typography.Text type="danger">
+        &nbsp;
+        {error && (jsonError ? `${t('bodyError')}` : `${t('errorVariable')}: ${error}`)}
+      </Typography.Text>
     </div>
   );
 };

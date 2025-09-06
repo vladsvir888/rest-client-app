@@ -6,6 +6,7 @@ import cls from './UrlLine.module.css';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { RestClientContext } from '../RestClientProvider/RestClientProvider';
 import { validation } from '@/lib/validation';
+import { useTranslations } from 'next-intl';
 
 interface InputUrlProps {
   url: string;
@@ -16,6 +17,7 @@ export const InputUrl: FC<InputUrlProps> = ({ url }) => {
   const [inputError, setInputError] = useState('');
   const { setErrorInput } = use(RestClientContext);
   const timerId = useRef<NodeJS.Timeout | null>(null);
+  const t = useTranslations('restClient');
 
   const path = usePathname();
   const searchParams = useSearchParams();
@@ -32,12 +34,15 @@ export const InputUrl: FC<InputUrlProps> = ({ url }) => {
     }
 
     const value = e.target.value;
+    setValue(value);
 
     if (value.length === 0) {
       setErrorInput?.(true);
+      setInputError('fill');
+      return;
     }
 
-    setValue(value);
+    setInputError('');
 
     timerId.current = setTimeout(() => {
       const pathArr = path.split('/');
@@ -74,11 +79,15 @@ export const InputUrl: FC<InputUrlProps> = ({ url }) => {
       <Input
         value={value}
         onChange={handleInput}
-        placeholder={'inputPlaceholder'}
+        placeholder={t('inputPlaceholder')}
         className={cls.input}
         status={inputError.length > 0 ? 'error' : ''}
       />
-      <Typography.Text type="danger">&nbsp;{inputError}</Typography.Text>
+      <Typography.Text type="danger">
+        &nbsp;
+        {inputError &&
+          (value.length > 0 ? `${t('errorVariable')}: ${inputError}` : `${t('urlErrorFill')}`)}
+      </Typography.Text>
     </div>
   );
 };

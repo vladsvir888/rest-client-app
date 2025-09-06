@@ -8,6 +8,7 @@ import { RestClientContext } from '../RestClientProvider/RestClientProvider';
 import { useForm } from 'antd/es/form/Form';
 import { validation } from '@/lib/validation';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface HeadersProps {
   headers: { key: string; value: string | undefined }[];
@@ -17,6 +18,7 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
   const { setErrorHeader } = use(RestClientContext);
   const [error, setError] = useState('');
   const [form] = useForm();
+  const t = useTranslations('restClient');
 
   const path = usePathname();
   const searchParams = useSearchParams();
@@ -91,7 +93,7 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
         window.history.replaceState(
           {},
           '',
-          `/${pathArr[1]}/rest-client/${pathArr[3]}/${pathArr[4] ? '/' + pathArr[4] : ''}${
+          `/${pathArr[1]}/rest-client/${pathArr[3]}/${pathArr[4] ? pathArr[4] : ''}${
             pathArr[5] ? '/' + pathArr[5] : ''
           }${result ? '?' + result : ''}`
         );
@@ -121,7 +123,7 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
                   block
                   icon={<PlusOutlined />}
                 >
-                  {'headers'}
+                  {t('headers')}
                 </Button>
               </Form.Item>
 
@@ -147,7 +149,7 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
         </Form.List>
         <Typography.Text type="danger">
           &nbsp;
-          {error}
+          {error.length > 0 && `${t('errorVariable')}: ${error}`}
         </Typography.Text>
       </Form>
     </>
