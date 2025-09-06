@@ -22,7 +22,7 @@ export const RestClient: FC<RestClientProps> = (props) => {
       <div className={cls.wrapper}>
         <UrlLine select={select} url={url} />
         <Headers headers={headers} />
-        <Body />
+        <Body body={body} />
         <CodeGenerator />
         <Response />
       </div>

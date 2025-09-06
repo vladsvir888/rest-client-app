@@ -21,6 +21,35 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
   const path = usePathname();
   const searchParams = useSearchParams();
 
+  useEffect(() => {
+    form.setFieldsValue({
+      headers,
+    });
+  }, [form, headers]);
+
+  useEffect(() => {
+    const query = searchParams.toString();
+
+    if (query) {
+      const headers = query.split('&').map((el) => {
+        const [key, value] = el.split('=');
+
+        return {
+          key: decodeURIComponent(key),
+          value: decodeURIComponent(value),
+        };
+      });
+
+      form.setFieldsValue({
+        headers,
+      });
+    } else {
+      form.setFieldsValue({
+        headers: [],
+      });
+    }
+  }, [form, searchParams]);
+
   const handleChangeHeader = useCallback(() => {
     let timerId = '' as unknown as NodeJS.Timeout;
 
@@ -69,29 +98,6 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
       }, 300);
     };
   }, [form, path, setErrorHeader]);
-
-  useEffect(() => {
-    form.setFieldsValue({
-      headers,
-    });
-  }, [form, headers]);
-
-  useEffect(() => {
-    const query = searchParams.toString();
-
-    const headers = query.split('&').map((el) => {
-      const [key, value] = el.split('=');
-
-      return {
-        key,
-        value,
-      };
-    });
-
-    form.setFieldsValue({
-      headers,
-    });
-  }, [form, handleChangeHeader, searchParams]);
 
   return (
     <>

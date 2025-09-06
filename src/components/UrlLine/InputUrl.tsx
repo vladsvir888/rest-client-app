@@ -27,7 +27,9 @@ export const InputUrl: FC<InputUrlProps> = ({ url }) => {
   }, [url, setErrorInput]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (timerId.current) clearTimeout(timerId.current);
+    if (timerId.current) {
+      clearTimeout(timerId.current);
+    }
 
     const value = e.target.value;
 
