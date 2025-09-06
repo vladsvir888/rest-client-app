@@ -1,37 +1,37 @@
 'use client';
 
-import { parseUrl } from '@/app/[locale]/rest-client/[[...slug]]/api/parseUrl';
 import { methods } from '@/consts/rest-client';
 import { Select } from 'antd';
-import { useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import cls from './UrlLine.module.css';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+
+interface SelectClientProps {
+  select: string;
+}
 
 const selects = [...methods].map((method) => ({
   value: method,
   label: method,
 }));
 
-export const SelectClient = () => {
-  const [select, setSelect] = useState('GET');
+export const SelectClient: FC<SelectClientProps> = ({ select: startSelect }) => {
+  const [select, setSelect] = useState(startSelect);
   const path = usePathname();
-
-  useEffect(() => {
-    async function currentPath() {
-      const parse = await parseUrl('http://' + path);
-      setSelect(parse.pathSegments[1]);
-    }
-
-    currentPath();
-  }, [path]);
+  const searchParams = useSearchParams();
 
   const handleSelect = (value: string) => {
     setSelect(value);
-    const index = path.indexOf('/', 16);
+    const index = path.indexOf('/', 16) === -1 ? path.length - 1 : path.indexOf('/', 16);
+
+    const search = searchParams.toString();
+
     window.history.replaceState(
-      null,
+      {},
       '',
-      `${path.slice(0, 3)}/rest-client/${value}/${path.slice(index + 1)}`
+      `${path.slice(0, 3)}/rest-client/${value}/${path.slice(index + 1)}${
+        search ? '?' + search : ''
+      }`
     );
   };
 

@@ -1,14 +1,13 @@
-'use server';
-
 import { regExp } from '@/consts/rest-client';
 
 interface IReplaceVariable {
+  type?: string;
   error: boolean;
-  origin: string[] | string;
-  res: string[] | string;
+  origin: string;
+  res: string;
 }
 
-export const validation = async (
+export const validation = (
   url: string,
   body: string,
   element: string,
@@ -21,33 +20,15 @@ export const validation = async (
     return validateBody(decodeURIComponent(body ?? ''), decodeURIComponent(query), variables);
   } else if (element === 'headers') {
     return validateHeaders(query, variables);
-  } else if (element === 'search') {
-    const validUrl = validateUrl(decodeURIComponent(url ?? ''), variables);
-    const validBody = validateBody(
-      decodeURIComponent(body ?? ''),
-      decodeURIComponent(query),
-      variables
-    );
-    const validHeaders = validateHeaders(decodeURIComponent(query), variables);
-
-    return {
-      error: validUrl.error || validBody.error || validHeaders.error,
-      res: validUrl.res || validBody.res || validHeaders.res,
-      origin: validUrl.origin || validBody.origin || validHeaders.origin,
-    };
   }
 };
 
 function validateUrl(url: string, variables: { [key: string]: string }): IReplaceVariable {
-  if (!url) {
-    return { error: true, res: 'urlErrorFill', origin: url };
-  }
-
   if (regExp.test(url)) {
     const res = replaceVariable(url, variables, regExp);
 
     if (res.status === 'error') {
-      return { error: true, res: (res.res as string[]).join(', '), origin: url };
+      return { error: true, res: (res.res as string[]).join(', '), origin: url, type: 'var' };
     }
 
     if (res.status === 'fulfilled') {
@@ -69,7 +50,7 @@ function validateBody(
     const res = replaceVariable(url, variables, regExp);
 
     if (res.status === 'error') {
-      return { error: true, res: (res.res as string[]).join(', '), origin: url };
+      return { error: true, res: (res.res as string[]).join(', '), origin: url, type: 'var' };
     } else {
       if (typeJSON) {
         return checkJson(res.res as string, url);
@@ -92,7 +73,12 @@ function validateHeaders(
   if (regExp.test(searchParams)) {
     const res = replaceVariable(searchParams, variables, regExp);
     if (res.status === 'error') {
-      return { error: true, res: (res.res as string[]).join(', '), origin: searchParams };
+      return {
+        error: true,
+        res: (res.res as string[]).join(', '),
+        origin: searchParams,
+        type: 'var',
+      };
     } else {
       return { error: false, res: res.res as string, origin: searchParams };
     }
@@ -106,11 +92,11 @@ function checkJson(json: string, url: string): IReplaceVariable {
     JSON.parse(json);
     return { error: false, res: json, origin: url };
   } catch {
-    return { error: true, res: 'jsonError', origin: url };
+    return { error: true, res: 'jsonError', origin: url, type: 'json' };
   }
 }
 
-function replaceVariable(str: string, vars: { [key: string]: string } = {}, regExp: RegExp) {
+/* function replaceVariable(str: string, vars: { [key: string]: string } = {}, regExp: RegExp) {
   const variables = Array.from(new Set(str.match(regExp)));
   const getVariables = variables.map((el) => el.slice(2, -2));
   const nonexistentVariables = getVariables.filter((el) => !Object.keys(vars).includes(el));
@@ -128,6 +114,37 @@ function replaceVariable(str: string, vars: { [key: string]: string } = {}, regE
   for (const element of variables) {
     const el = element.slice(2, -2);
     res = res.replace(new RegExp(`\\{\\{${el}\\}\\}`, 'g'), String(vars[el]));
+  }
+
+  return { status: 'fulfilled', res };
+} */
+
+function replaceVariable(str: string, vars: { [key: string]: string } = {}, regExp: RegExp) {
+  const variables = Array.from(new Set(str.match(regExp)));
+  const getVariables = variables.map((el) => el.slice(2, -2));
+  const nonexistentVariables = getVariables.filter(
+    (el) =>
+      !Object.values(vars)
+        .map((el) => el.slice(2, -2))
+        .includes(el)
+  );
+
+  if (str.includes('{{}}')) {
+    nonexistentVariables.push('{{}}');
+  }
+
+  if (nonexistentVariables.length > 0) {
+    return { status: 'error', res: nonexistentVariables.filter(Boolean) };
+  }
+
+  let res = str;
+
+  for (const element of variables) {
+    const el = element.slice(2, -2);
+    res = res.replace(
+      new RegExp(`\\{\\{${el}\\}\\}`, 'g'),
+      String(Object.entries(vars).filter((el) => el[1] === element)[0][0])
+    );
   }
 
   return { status: 'fulfilled', res };

@@ -1,6 +1,4 @@
-'use server';
-
-export const parseUrl = async (url: string) => {
+export const parseUrl = (url: string) => {
   try {
     const urlObject = new URL(url);
     const path = urlObject.pathname;

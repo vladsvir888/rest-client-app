@@ -1,7 +1,7 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { parseUrl } from './api/parseUrl';
+import { parseUrl } from '../../../../lib/parseUrl';
 import { methods } from '@/consts/rest-client';
 
 const RestClient = dynamic(() =>
@@ -15,13 +15,20 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  if (slug === undefined || !methods.includes(slug[0])) {
-    const headersList = await headers();
-    const fullUrl = headersList.get('link')?.split('; ')[0].slice(1, -1);
-    const pathSegments = (await parseUrl(fullUrl || '')).pathSegments;
+  const headersList = await headers();
+  const fullUrl = headersList.get('link')?.split('; ')[0].slice(1, -1);
+  const parse: ReturnType<typeof parseUrl> = parseUrl(fullUrl || '');
 
-    redirect(`/${pathSegments[0]}/${pathSegments[1]}/GET`);
+  if (slug === undefined || !methods.includes(slug[0])) {
+    redirect(`/${parse.pathSegments[0]}/${parse.pathSegments[1]}/GET`);
   }
 
-  return <RestClient />;
+  return (
+    <RestClient
+      body={parse.pathSegments[4] || ''}
+      headers={parse.query.toString() || ''}
+      select={parse.pathSegments[2]}
+      url={parse.pathSegments[3] || ''}
+    />
+  );
 }
