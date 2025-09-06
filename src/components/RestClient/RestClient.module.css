@@ -7,4 +7,5 @@
   flex-direction: column;
   gap: 20px;
   word-wrap: break-word;
+  align-items: center;
 }

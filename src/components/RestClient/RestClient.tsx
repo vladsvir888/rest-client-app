@@ -10,7 +10,7 @@ import cls from './RestClient.module.css';
 interface RestClientProps {
   url: string;
   select: string;
-  headers: string;
+  headers: { key: string; value: string | undefined }[];
   body: string;
 }
 
@@ -21,7 +21,7 @@ export const RestClient: FC<RestClientProps> = (props) => {
     <RestClientProvider>
       <div className={cls.wrapper}>
         <UrlLine select={select} url={url} />
-        <Headers />
+        <Headers headers={headers} />
         <Body />
         <CodeGenerator />
         <Response />

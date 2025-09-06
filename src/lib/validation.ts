@@ -19,7 +19,7 @@ export const validation = (
   } else if (element === 'body') {
     return validateBody(decodeURIComponent(body ?? ''), decodeURIComponent(query), variables);
   } else if (element === 'headers') {
-    return validateHeaders(query, variables);
+    return validateHeaders(decodeURIComponent(query), variables);
   }
 };
 

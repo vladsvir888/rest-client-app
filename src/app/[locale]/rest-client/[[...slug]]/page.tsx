@@ -10,11 +10,13 @@ const RestClient = dynamic(() =>
 
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string | string[] | undefined }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { slug } = await params;
-
+  const searchParamsUrl = await searchParams;
   const headersList = await headers();
   const fullUrl = headersList.get('link')?.split('; ')[0].slice(1, -1);
   const parse: ReturnType<typeof parseUrl> = parseUrl(fullUrl || '');
@@ -23,10 +25,17 @@ export default async function Page({
     redirect(`/${parse.pathSegments[0]}/${parse.pathSegments[1]}/GET`);
   }
 
+  const arrHeaders = Object.entries(searchParamsUrl || {}).map((el) => {
+    return {
+      key: el[0],
+      value: Array.isArray(el[1]) ? el[1].join(', ') : el[1],
+    };
+  });
+
   return (
     <RestClient
       body={parse.pathSegments[4] || ''}
-      headers={parse.query.toString() || ''}
+      headers={arrHeaders}
       select={parse.pathSegments[2]}
       url={parse.pathSegments[3] || ''}
     />
