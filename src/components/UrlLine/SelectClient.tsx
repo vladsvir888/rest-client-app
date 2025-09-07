@@ -29,9 +29,7 @@ export const SelectClient: FC<SelectClientProps> = ({ select: startSelect }) => 
     window.history.replaceState(
       {},
       '',
-      `${path.slice(0, 3)}/rest-client/${value}/${path.slice(index + 1)}${
-        search ? '?' + search : ''
-      }`
+      `/${path.slice(1, 3)}/rest-client/${value}/${path.slice(index + 1)}?${search ? search : ''}`
     );
   };
 

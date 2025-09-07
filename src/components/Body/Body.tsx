@@ -49,6 +49,9 @@ export const Body: FC<BodyProps> = ({ body }) => {
       timerId.current = setTimeout(() => {
         const pathArr = window.location.href.split('/');
 
+        const select = pathArr[5]?.split('?')[0];
+        const url = pathArr[6]?.split('?')[0];
+
         const variables = localStorage.getItem('asd') || '{ "фыв": "{{BAR}}" }';
         const res = validation(
           '',
@@ -78,9 +81,9 @@ export const Body: FC<BodyProps> = ({ body }) => {
         window.history.replaceState(
           {},
           '',
-          `/${pathArr[3]}/rest-client/${pathArr[5]}/${pathArr[6] ? pathArr[6] : ''}/${btoa(
+          `/${pathArr[3]}/rest-client/${select}/${url ? url : ''}/${btoa(
             encodeURIComponent(result)
-          )}${query ? '?' + query : ''}`
+          )}?${query ? query : ''}`
         );
       }, 300);
     },
@@ -88,17 +91,10 @@ export const Body: FC<BodyProps> = ({ body }) => {
   );
 
   const handleSelectBody = useCallback(
-    (value: string) => {
+    (value: string, search: string) => {
       setShowBody(value !== 'none');
       setSelectBody(value);
-      let query = searchParams.toString();
-      if (value === 'none') {
-        setInputBody('');
-        query = query
-          .split('&')
-          .filter((el) => !el.includes('Content-Type'))
-          .join('&');
-      }
+      let query = search;
 
       if (value !== 'json') {
         setErrorBody?.(false);
@@ -112,9 +108,20 @@ export const Body: FC<BodyProps> = ({ body }) => {
         query = updateQuery(query, 'text%2Fhtml');
       }
 
-      changeUrl(query);
+      if (value === 'none') {
+        setInputBody('');
+
+        query = query
+          .split('&')
+          .filter((el) => !el.includes('Content-Type'))
+          .join('&');
+
+        changeUrl(query, '');
+      } else {
+        changeUrl(query);
+      }
     },
-    [changeUrl, searchParams, setErrorBody]
+    [changeUrl, setErrorBody]
   );
 
   useEffect(() => {
@@ -122,7 +129,7 @@ export const Body: FC<BodyProps> = ({ body }) => {
 
     if (query) {
       if (query.includes('json')) {
-        handleSelectBody('json');
+        handleSelectBody('json', searchParams.toString());
         if (first) {
           setFirst(false);
           try {
@@ -133,10 +140,10 @@ export const Body: FC<BodyProps> = ({ body }) => {
         }
       }
       if (query.includes('text')) {
-        handleSelectBody('text');
+        handleSelectBody('text', searchParams.toString());
       }
     } else {
-      handleSelectBody('none');
+      handleSelectBody('none', searchParams.toString());
     }
   }, [body, first, handleSelectBody, searchParams]);
 
@@ -154,7 +161,7 @@ export const Body: FC<BodyProps> = ({ body }) => {
         <Select
           value={selectBody}
           className={cls.select}
-          onChange={handleSelectBody}
+          onChange={(e) => handleSelectBody(e, searchParams.toString())}
           options={[
             { value: 'none', label: `${t('none')}` },
             { value: 'json', label: 'JSON' },

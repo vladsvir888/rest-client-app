@@ -63,8 +63,9 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
           .headers.map((el: { key: string | undefined; value: string | undefined }) => {
             const obj = el ?? {};
 
-            return [obj.key ?? '', obj.value ?? ''];
-          });
+            return `${obj.key ?? ''}=${obj.value ?? ''}`;
+          })
+          .join('&');
 
         const pathArr = path.split('/');
 
@@ -74,7 +75,7 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
           path,
           atob(pathArr[5] || ''),
           'headers',
-          new URLSearchParams(headers).toString(),
+          headers,
           JSON.parse(variables)
         );
 
@@ -93,9 +94,9 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
         window.history.replaceState(
           {},
           '',
-          `/${pathArr[1]}/rest-client/${pathArr[3]}/${pathArr[4] ? pathArr[4] : ''}${
-            pathArr[5] ? '/' + pathArr[5] : ''
-          }${result ? '?' + result : ''}`
+          `/${pathArr[1]}/rest-client/${pathArr[3]}/${pathArr[4] ? pathArr[4] : ''}/${
+            pathArr[5] ? pathArr[5] : ''
+          }?${result ? result : ''}`
         );
       }, 300);
     };

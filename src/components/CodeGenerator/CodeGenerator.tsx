@@ -17,6 +17,7 @@ export const CodeGenerator = () => {
   const [showCodeGenerate, setShowCodeGenerate] = useState(false);
   const [selectCodeGenerate, setSelectCodeGenerate] = useState('none');
   const [codeGenerate, setCodeGenerate] = useState(``);
+  const [disabled, setDisabled] = useState(true);
 
   const path = usePathname();
   const searchParams = useSearchParams();
@@ -75,6 +76,8 @@ export const CodeGenerator = () => {
     if (selectCodeGenerate !== 'none') {
       generateCode();
     }
+
+    setDisabled(!decodeURIComponent(atob(path.split('/')[3] ?? '')));
   }, [path, searchParams, selectCodeGenerate]);
 
   const handleCode = (value: string) => {
@@ -87,6 +90,7 @@ export const CodeGenerator = () => {
       <div className={styles.title}>
         <h3>{t('code')}: </h3>
         <Select
+          disabled={disabled}
           defaultValue="none"
           className={styles.select}
           onChange={handleCode}

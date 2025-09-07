@@ -39,18 +39,16 @@ export const InputUrl: FC<InputUrlProps> = ({ url }) => {
     if (value.length === 0) {
       setErrorInput?.(true);
       setInputError('fill');
+      replaceURL(value);
       return;
     }
 
     setInputError('');
 
     timerId.current = setTimeout(() => {
-      const pathArr = path.split('/');
-      const search = searchParams.toString();
-
       const variables = localStorage.getItem('asd') || '{ "foo": "{{BAR}}" }';
 
-      const res = validation(value, atob(pathArr[5] || ''), 'url', search, JSON.parse(variables));
+      const res = validation(value, '', 'url', '', JSON.parse(variables));
 
       let result = '';
 
@@ -64,14 +62,21 @@ export const InputUrl: FC<InputUrlProps> = ({ url }) => {
         result = res?.res || '';
       }
 
-      window.history.replaceState(
-        {},
-        '',
-        `/${pathArr[1]}/rest-client/${pathArr[3]}/${btoa(encodeURIComponent(result))}${
-          pathArr[5] ? '/' + pathArr[5] : ''
-        }${search ? '?' + search : ''}`
-      );
+      replaceURL(result);
     }, 300);
+  };
+
+  const replaceURL = (value: string) => {
+    const pathArr = path.split('/');
+    const search = searchParams.toString();
+
+    window.history.replaceState(
+      {},
+      '',
+      `/${pathArr[1]}/rest-client/${pathArr[3]}/${btoa(encodeURIComponent(value))}/${
+        pathArr[5] ? pathArr[5] : ''
+      }?${search ? search : ''}`
+    );
   };
 
   return (
