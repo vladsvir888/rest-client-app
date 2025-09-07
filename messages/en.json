@@ -2,7 +2,7 @@
   "change_lang": "choose language",
   "restClient": {
     "title": "Client",
-    "inputPlaceholder": "Enter URL or paste text",
+    "inputPlaceholder": "Enter URL or paste text (required)*",
     "urlErrorFill": "Fill in the URL",
     "errorVariable": "Non-existent variables",
     "send": "Send",

@@ -52,7 +52,7 @@ export const Body: FC<BodyProps> = ({ body }) => {
         const variables = localStorage.getItem('asd') || '{ "фыв": "{{BAR}}" }';
         const res = validation(
           '',
-          input ?? atob(pathArr[7].split('?')[0]),
+          input ?? atob(pathArr[7]?.split('?')?.[0] ?? ''),
           'body',
           query,
           JSON.parse(variables)

@@ -2,7 +2,7 @@
   "change_lang": "Выберите язык",
   "restClient": {
     "title": "Клиент",
-    "inputPlaceholder": "Введите URL или вставьте текст",
+    "inputPlaceholder": "Введите URL или вставьте текст (обязательно)*",
     "urlErrorFill": "Введите URL-адрес",
     "errorVariable": "Несуществующие переменные",
     "send": "Отправить",
