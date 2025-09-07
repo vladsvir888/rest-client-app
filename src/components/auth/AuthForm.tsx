@@ -1,6 +1,5 @@
 'use client';
 
-// import { login, register } from '@/firebase/handlers';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Alert, Button, Form, Input } from 'antd';
