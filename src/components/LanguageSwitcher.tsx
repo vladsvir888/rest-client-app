@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { useState } from 'react';
@@ -8,14 +8,16 @@ import { useState } from 'react';
 export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const currentLocale = useLocale();
   const [locale, setLocale] = useState(currentLocale);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLocale = e.target.value;
     setLocale(newLocale);
+    const params = searchParams.toString();
     const newPath = pathname.replace(`/${currentLocale}`, `/${newLocale}`);
-    router.push(newPath);
+    router.push(newPath + (params ? '?' + params : ''));
   };
 
   return (

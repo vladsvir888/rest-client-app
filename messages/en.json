@@ -1,4 +1,28 @@
 {
   "change_lang": "choose language",
+
+  "restClient": {
+    "title": "Client",
+    "inputPlaceholder": "Enter URL or paste text (required)*",
+    "urlErrorFill": "Fill in the URL",
+    "errorVariable": "Non-existent variables",
+    "send": "Send",
+    "headers": "Add Header",
+    "body": "Body",
+    "bodyError": "Invalid JSON",
+    "none": "None",
+    "code": "Code",
+    "codeErrorBody": "Incorrect variables in body",
+    "codeErrorUrl": "Incorrect variables in URL",
+    "codeErrorHeaders": "Incorrect variables in headers",
+    "response": "Response",
+    "status": "Status",
+    "serverError": "Server error",
+    "requestError": "Invalid request",
+    "networkError": "Network error. Could not send request",
+    "generatorError": "Please fix all errors before generating code"
+  },
+
   "return_home": "Return home"
+
 }
