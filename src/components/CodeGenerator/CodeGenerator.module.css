@@ -1,0 +1,23 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.title {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.select {
+  width: 200px;
+}
+
+.code {
+  width: 100%;
+  word-break: break-all;
+}

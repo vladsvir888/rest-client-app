@@ -18,6 +18,7 @@
     "status": "Status",
     "serverError": "Server error",
     "requestError": "Invalid request",
-    "networkError": "Network error. Could not send request"
+    "networkError": "Network error. Could not send request",
+    "generatorError": "Please fix all errors before generating code"
   }
 }
