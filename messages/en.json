@@ -1,5 +1,6 @@
 {
   "change_lang": "choose language",
+
   "restClient": {
     "title": "Client",
     "inputPlaceholder": "Enter URL or paste text (required)*",
@@ -20,5 +21,8 @@
     "requestError": "Invalid request",
     "networkError": "Network error. Could not send request",
     "generatorError": "Please fix all errors before generating code"
-  }
+  },
+
+  "return_home": "Return home"
+
 }
