@@ -1,6 +1,5 @@
 {
   "change_lang": "choose language",
-
   "restClient": {
     "title": "Client",
     "inputPlaceholder": "Enter URL or paste text (required)*",
@@ -22,7 +21,16 @@
     "networkError": "Network error. Could not send request",
     "generatorError": "Please fix all errors before generating code"
   },
-
-  "return_home": "Return home"
-
+  "return_home": "Return home",
+  "sign_in": "Sign in",
+  "sign_up": "Sign up",
+  "sign_out": "Sign out",
+  "input_err_message": "Please fill input correctly",
+  "submit": "Submit",
+  "password": "Password",
+  "email": "Email",
+  "restful": "RESTful",
+  "history": "History",
+  "variables": "Variables",
+  "welcome": "Welcome"
 }

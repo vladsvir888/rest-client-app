@@ -13,9 +13,11 @@ export default function NotFoundPage() {
   const router = useRouter();
 
   return (
-    <Flex vertical={true} align="center" className="container">
-      <Title>404</Title>
-      <Button onClick={() => router.push('/')}>{t('return_home')}</Button>
-    </Flex>
+    <div className="container">
+      <Flex vertical={true} align="center">
+        <Title>404</Title>
+        <Button onClick={() => router.push('/')}>{t('return_home')}</Button>
+      </Flex>
+    </div>
   );
 }
