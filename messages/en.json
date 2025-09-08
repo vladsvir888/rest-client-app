@@ -4,5 +4,6 @@
   "value_variable": "Variable value",
   "variables_page_title": "Page with variables",
   "create_variable": "Create variable",
-  "form_title": "Add variable"
+  "form_title": "Add variable",
+  "no_variables": "Variabl is not exist"
 }

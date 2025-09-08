@@ -1,8 +1,6 @@
 'use client';
 
-import { Input } from 'antd';
-import { Form } from 'antd';
-import { Button } from 'antd';
+import { Input, Form, Button } from 'antd';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import style from './style/CreateVariable.module.css';

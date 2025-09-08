@@ -4,5 +4,6 @@
   "value_variable": "Значение переменной",
   "variables_page_title": "Страница с переменными",
   "create_variable": "Создать переменную",
-  "form_title": "Добавить переменную"
+  "form_title": "Добавить переменную",
+  "no_variables": "Переменные не обнаружены"
 }

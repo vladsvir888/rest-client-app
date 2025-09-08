@@ -47,6 +47,6 @@ export default function CurrentVariable({ authUser }: { authUser: string }) {
   return listVar.length > 0 ? (
     <Table dataSource={listVar} columns={columns} />
   ) : (
-    <h4>Variables is not exist</h4>
+    <h4>{t('no_variables')}</h4>
   );
 }
