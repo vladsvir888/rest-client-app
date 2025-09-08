@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Table } from 'antd';
+import { getVariables } from '@/utils/applyVariables';
 
 type VariableRecord = {
   key: string;
@@ -15,20 +16,13 @@ export default function CurrentVariable({ authUser }: { authUser: string }) {
   const [listVar, setListVar] = useState<VariableRecord[]>([]);
 
   useEffect(() => {
-    const raw = localStorage.getItem(`variable-${authUser}`);
-    if (raw) {
-      try {
-        const parsed: Record<string, string> = JSON.parse(raw);
-        const formatted = Object.entries(parsed).map(([key, value]) => ({
-          key,
-          variable: key,
-          value,
-        }));
-        setListVar(formatted);
-      } catch (err) {
-        console.error('Error parse variable', err);
-      }
-    }
+    const parsed = getVariables(authUser);
+    const formatted = Object.entries(parsed).map(([key, value]) => ({
+      key,
+      variable: key,
+      value,
+    }));
+    setListVar(formatted);
   }, [authUser]);
 
   const columns = [
