@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import '../globals.css';
 import Header from '@/components/Header';
 import '@ant-design/v5-patch-for-react-19';
+import { Providers } from '../providers';
 
 type Props = {
   children: React.ReactNode;
@@ -25,10 +26,10 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html lang={locale}>
       <body>
         <NextIntlClientProvider>
-
+          <Providers>
             <Header />
             <div className="wrapper">{children}</div>
-
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

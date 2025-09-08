@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { parseUrl } from '../../../../lib/parseUrl';
 import { methods } from '@/consts/rest-client';
+import AuthRoute from '@/components/auth/AuthRoute';
 
 const RestClient = dynamic(() =>
   import('../../../../components/RestClient/RestClient').then((mod) => mod.RestClient)
@@ -33,11 +34,13 @@ export default async function Page({
   });
 
   return (
-    <RestClient
-      body={parse.pathSegments[4] || ''}
-      headers={arrHeaders}
-      select={parse.pathSegments[2]}
-      url={parse.pathSegments[3] || ''}
-    />
+    <AuthRoute>
+      <RestClient
+        body={parse.pathSegments[4] || ''}
+        headers={arrHeaders}
+        select={parse.pathSegments[2]}
+        url={parse.pathSegments[3] || ''}
+      />
+    </AuthRoute>
   );
 }
