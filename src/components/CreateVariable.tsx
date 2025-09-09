@@ -17,7 +17,8 @@ export default function CreateVariable({
 
   function createNewVariable() {
     if (!key || !value) return;
-    createVar(key, value);
+    const transformKey = key.trim();
+    createVar(transformKey, value);
     setKey('');
     setValue('');
   }
