@@ -7,7 +7,8 @@ export function getVariables(authUser: string): VariableMap {
   const raw = localStorage.getItem(`variable-${authUser}`) || '{}';
   try {
     return JSON.parse(raw) as VariableMap;
-  } catch {
+  } catch (err) {
+    console.log('message: ', err);
     return {};
   }
 }

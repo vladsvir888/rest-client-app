@@ -3,7 +3,11 @@
   flex-direction: column;
   gap: 8;
   margin: 10px 0 50px;
+  max-width: 300px;
 }
 .form_title {
   margin-top: 20px;
+}
+.form_button {
+  max-width: 150px;
 }
