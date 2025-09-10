@@ -24,7 +24,7 @@ export default function CreateVariable({
   }
 
   return (
-    <>
+    <div className={style.form_container}>
       <h3 className={style.form_title}>{t('form_title')}</h3>
       <Form className={style.form_variable}>
         <Input
@@ -43,6 +43,6 @@ export default function CreateVariable({
           {t('create_variable')}
         </Button>
       </Form>
-    </>
+    </div>
   );
 }

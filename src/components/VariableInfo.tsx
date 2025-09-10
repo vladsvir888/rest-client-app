@@ -4,6 +4,7 @@ import CreateVariable from './CreateVariable';
 import CurrentVariable from './CurrentVariable';
 import { useState, useEffect } from 'react';
 import { getVariables } from '@/utils/applyVariables';
+import style from './style/VariableInfo.module.css';
 
 import type { VariableRecord } from '@/types/types';
 
@@ -29,9 +30,9 @@ export default function VariableInfo({ authUser }: { authUser: string }) {
   }, [authUser]);
 
   return (
-    <>
+    <div className={style.variable_container}>
       <CurrentVariable listVar={listVar} />
       <CreateVariable createVar={handleCreateVariable} />
-    </>
+    </div>
   );
 }

@@ -19,7 +19,7 @@ export default function CurrentVariable({ listVar }: { listVar: VariableRecord[]
   ];
 
   return listVar.length > 0 ? (
-    <Table dataSource={listVar} columns={columns} rowKey="key" />
+    <Table style={{ flex: '2 1 0' }} dataSource={listVar} columns={columns} rowKey="key" />
   ) : (
     <h4>{t('no_variables')}</h4>
   );
