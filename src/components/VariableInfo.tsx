@@ -19,6 +19,16 @@ export default function VariableInfo({ authUser }: { authUser: string }) {
     setListVar((prev) => [...prev, { key, variable: key, value }]);
   };
 
+  const handleDeleteVariable = (keysToDelete: React.Key[]) => {
+    const newArray = listVar.filter((item) => !keysToDelete.includes(item.key));
+    setListVar(newArray);
+    const parsed = getVariables(authUser);
+    keysToDelete.forEach((key) => {
+      delete parsed[String(key)];
+    });
+    localStorage.setItem(`variable-${authUser}`, JSON.stringify(parsed));
+  };
+
   useEffect(() => {
     const parsed = getVariables(authUser);
     const formatted = Object.entries(parsed).map(([key, value]) => ({
@@ -31,7 +41,7 @@ export default function VariableInfo({ authUser }: { authUser: string }) {
 
   return (
     <div className={style.variable_container}>
-      <CurrentVariable listVar={listVar} />
+      <CurrentVariable listVar={listVar} delVar={handleDeleteVariable} />
       <CreateVariable createVar={handleCreateVariable} />
     </div>
   );

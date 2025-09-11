@@ -47,6 +47,7 @@ h3 {
 .container {
   margin: 20px auto;
   max-width: 1400px;
+  padding: 0 20px;
 }
 
 @media (prefers-color-scheme: dark) {

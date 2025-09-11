@@ -26,7 +26,7 @@ export default function CreateVariable({
   return (
     <div className={style.form_container}>
       <h3 className={style.form_title}>{t('form_title')}</h3>
-      <Form className={style.form_variable}>
+      <Form className={style.form_variable} onFinish={createNewVariable}>
         <Input
           className={style.form_input}
           value={key}
@@ -39,7 +39,7 @@ export default function CreateVariable({
           onChange={handleChangeValue}
           placeholder={t('value_var')}
         />
-        <Button className={style.form_button} type="primary" onClick={createNewVariable}>
+        <Button type="primary" htmlType="submit">
           {t('create_variable')}
         </Button>
       </Form>

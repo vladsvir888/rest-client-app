@@ -7,5 +7,7 @@
   "form_title": "Add variable",
   "no_variables": "Variable is not exist",
   "name_var": "Name variable",
-  "value_var": "Value variable"
+  "value_var": "Value variable",
+  "delete_var": "Delete variable",
+  "current_variable": "Current variable"
 }
