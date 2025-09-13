@@ -8,9 +8,10 @@ import { useTranslations } from 'next-intl';
 interface UrlLineProps {
   url: string;
   select: string;
+  user?: string;
 }
 
-export const UrlLine: FC<UrlLineProps> = ({ select, url }) => {
+export const UrlLine: FC<UrlLineProps> = ({ select, url, user }) => {
   const t = useTranslations('restClient');
 
   return (
@@ -18,7 +19,7 @@ export const UrlLine: FC<UrlLineProps> = ({ select, url }) => {
       <h2>REST {t('title')}</h2>
       <div className={cls.wrapper}>
         <SelectClient select={select} />
-        <InputUrl url={url} />
+        <InputUrl url={url} user={user} />
         <Search />
       </div>
     </>

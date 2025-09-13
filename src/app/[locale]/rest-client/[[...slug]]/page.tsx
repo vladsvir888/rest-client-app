@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { parseUrl } from '../../../../lib/parseUrl';
 import { methods } from '@/consts/rest-client';
 import AuthRoute from '@/components/auth/AuthRoute';
+import { checkAuth } from '@/app/actions/auth';
 
 const RestClient = dynamic(() =>
   import('../../../../components/RestClient/RestClient').then((mod) => mod.RestClient)
@@ -33,6 +34,8 @@ export default async function Page({
     };
   });
 
+  const user = await checkAuth();
+
   return (
     <AuthRoute>
       <RestClient
@@ -40,6 +43,7 @@ export default async function Page({
         headers={arrHeaders}
         select={parse.pathSegments[2]}
         url={parse.pathSegments[3] || ''}
+        user={user}
       />
     </AuthRoute>
   );

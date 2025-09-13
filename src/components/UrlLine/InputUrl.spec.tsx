@@ -143,7 +143,7 @@ describe('InputUrl', () => {
       vi.advanceTimersByTime(300);
     });
 
-    expect(localStorage.getItem).toHaveBeenCalledWith('asd');
+    expect(localStorage.getItem).toHaveBeenCalledWith('variable-undefined');
     expect(validation).toHaveBeenCalledWith(
       'https://test.com',
       '',
