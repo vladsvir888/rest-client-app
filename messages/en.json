@@ -1,5 +1,15 @@
 {
   "change_lang": "choose language",
+  "key_variable": "Variable name",
+  "value_variable": "Variable value",
+  "variables_page_title": "Page with variables",
+  "create_variable": "Create variable",
+  "form_title": "Add variable",
+  "no_variables": "Variable is not exist",
+  "name_var": "Name variable",
+  "value_var": "Value variable",
+  "delete_var": "Delete variable",
+  "current_variable": "Current variable"
   "restClient": {
     "title": "Client",
     "inputPlaceholder": "Enter URL or paste text (required)*",

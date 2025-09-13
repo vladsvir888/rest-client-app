@@ -1,5 +1,15 @@
 {
   "change_lang": "Выберите язык",
+  "key_variable": "Название переменной",
+  "value_variable": "Значение переменной",
+  "variables_page_title": "Страница с переменными",
+  "create_variable": "Создать переменную",
+  "form_title": "Добавить переменную",
+  "no_variables": "Переменные не обнаружены",
+  "name_var": "Название перменной",
+  "value_var": "Значение переменной",
+  "delete_var": "Удалить переменную",
+  "current_variable": "Текущие переменные"
   "restClient": {
     "title": "Клиент",
     "inputPlaceholder": "Введите URL или вставьте текст (обязательно)*",
