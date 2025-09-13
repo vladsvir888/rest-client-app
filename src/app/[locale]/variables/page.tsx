@@ -1,23 +1,19 @@
-import { redirect } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 import VariableInfo from '@/components/VariableInfo';
+import AuthRoute from '@/components/auth/AuthRoute';
+import { checkAuth } from '@/app/actions/auth';
+import VariableTitle from '@/components/VariableTitle';
 
-export default function Variables({ authUser }: { authUser: string | false }) {
-  const t = useTranslations();
-
-  // if (!authUser) redirect('/login');
-  const user = 'user1';
+export default async function Variables() {
+  const { userEmail } = await checkAuth();
 
   return (
-    <div className="container">
-      <div className="private-layout">
-        <h1>{t('variables_page_title')}</h1>
-        {/* {typeof authUser === 'string' && (
-          <> */}
-        <VariableInfo authUser={user} />
-        {/* </>
-        )} */}
+    <AuthRoute>
+      <div className="container">
+        <div className="private-layout">
+          <VariableTitle />
+          <VariableInfo authUser={userEmail as string} />
+        </div>
       </div>
-    </div>
+    </AuthRoute>
   );
 }
