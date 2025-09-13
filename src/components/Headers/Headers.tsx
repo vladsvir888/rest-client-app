@@ -12,9 +12,10 @@ import { useTranslations } from 'next-intl';
 
 interface HeadersProps {
   headers: { key: string; value: string | undefined }[];
+  user?: string;
 }
 
-export const Headers: FC<HeadersProps> = ({ headers }) => {
+export const Headers: FC<HeadersProps> = ({ headers, user }) => {
   const { setErrorHeader } = use(RestClientContext);
   const [error, setError] = useState('');
   const [form] = useForm();
@@ -69,7 +70,7 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
 
         const pathArr = path.split('/');
 
-        const variables = localStorage.getItem('asd') || '{ "фыв": "{{BAR}}" }';
+        const variables = localStorage.getItem(`variable-${user}`) || '{}';
 
         const res = validation(
           path,
@@ -100,7 +101,7 @@ export const Headers: FC<HeadersProps> = ({ headers }) => {
         );
       }, 300);
     };
-  }, [form, path, setErrorHeader]);
+  }, [form, path, setErrorHeader, user]);
 
   return (
     <>

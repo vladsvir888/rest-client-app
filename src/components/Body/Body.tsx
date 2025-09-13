@@ -9,6 +9,7 @@ import { useTranslations } from 'next-intl';
 
 interface BodyProps {
   body: string;
+  user?: string;
 }
 
 const updateQuery = (search: string, value: string) => {
@@ -29,7 +30,7 @@ const updateQuery = (search: string, value: string) => {
   return query;
 };
 
-export const Body: FC<BodyProps> = ({ body }) => {
+export const Body: FC<BodyProps> = ({ body, user }) => {
   const { setErrorBody } = use(RestClientContext);
   const [error, setError] = useState('');
   const [inputBody, setInputBody] = useState(decodeURIComponent(atob(body ?? '')));
@@ -52,7 +53,7 @@ export const Body: FC<BodyProps> = ({ body }) => {
         const select = pathArr[5]?.split('?')[0];
         const url = pathArr[6]?.split('?')[0];
 
-        const variables = localStorage.getItem('asd') || '{ "фыв": "{{BAR}}" }';
+        const variables = localStorage.getItem(`variable-${user}`) || '{}';
         const res = validation(
           '',
           input ?? atob(pathArr[7]?.split('?')?.[0] ?? ''),
@@ -87,7 +88,7 @@ export const Body: FC<BodyProps> = ({ body }) => {
         );
       }, 300);
     },
-    [setErrorBody]
+    [setErrorBody, user]
   );
 
   const handleSelectBody = useCallback(
@@ -157,7 +158,7 @@ export const Body: FC<BodyProps> = ({ body }) => {
   return (
     <div className={cls.wrapper}>
       <div className={cls.tittle}>
-        <h3>{t('body')}: </h3>
+        <h3 className={cls.header}>{t('body')}: </h3>
         <Select
           value={selectBody}
           className={cls.select}

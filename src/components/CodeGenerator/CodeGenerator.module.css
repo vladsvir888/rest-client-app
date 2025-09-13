@@ -21,3 +21,7 @@
   width: 100%;
   word-break: break-all;
 }
+
+.header {
+  margin: 0;
+}

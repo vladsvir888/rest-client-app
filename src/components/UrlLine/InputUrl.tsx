@@ -10,9 +10,10 @@ import { useTranslations } from 'next-intl';
 
 interface InputUrlProps {
   url: string;
+  user?: string;
 }
 
-export const InputUrl: FC<InputUrlProps> = ({ url }) => {
+export const InputUrl: FC<InputUrlProps> = ({ url, user }) => {
   const [value, setValue] = useState(decodeURIComponent(atob(url)));
   const [inputError, setInputError] = useState('');
   const { setErrorInput } = use(RestClientContext);
@@ -46,7 +47,7 @@ export const InputUrl: FC<InputUrlProps> = ({ url }) => {
     setInputError('');
 
     timerId.current = setTimeout(() => {
-      const variables = localStorage.getItem('asd') || '{ "foo": "{{BAR}}" }';
+      const variables = localStorage.getItem(`variable-${user}`) || '{}';
 
       const res = validation(value, '', 'url', '', JSON.parse(variables));
 

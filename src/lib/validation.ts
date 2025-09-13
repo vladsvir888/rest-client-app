@@ -96,7 +96,7 @@ function checkJson(json: string, url: string): IReplaceVariable {
   }
 }
 
-/* function replaceVariable(str: string, vars: { [key: string]: string } = {}, regExp: RegExp) {
+function replaceVariable(str: string, vars: { [key: string]: string } = {}, regExp: RegExp) {
   const variables = Array.from(new Set(str.match(regExp)));
   const getVariables = variables.map((el) => el.slice(2, -2));
   const nonexistentVariables = getVariables.filter((el) => !Object.keys(vars).includes(el));
@@ -117,9 +117,9 @@ function checkJson(json: string, url: string): IReplaceVariable {
   }
 
   return { status: 'fulfilled', res };
-} */
+}
 
-function replaceVariable(str: string, vars: { [key: string]: string } = {}, regExp: RegExp) {
+/* function replaceVariable(str: string, vars: { [key: string]: string } = {}, regExp: RegExp) {
   const variables = Array.from(new Set(str.match(regExp)));
   const getVariables = variables.map((el) => el.slice(2, -2));
   const nonexistentVariables = getVariables.filter(
@@ -149,3 +149,4 @@ function replaceVariable(str: string, vars: { [key: string]: string } = {}, regE
 
   return { status: 'fulfilled', res };
 }
+ */
