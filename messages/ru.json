@@ -9,7 +9,7 @@
   "name_var": "Название перменной",
   "value_var": "Значение переменной",
   "delete_var": "Удалить переменную",
-  "current_variable": "Текущие переменные"
+  "current_variable": "Текущие переменные",
   "restClient": {
     "title": "Клиент",
     "inputPlaceholder": "Введите URL или вставьте текст (обязательно)*",

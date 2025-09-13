@@ -9,7 +9,7 @@
   "name_var": "Name variable",
   "value_var": "Value variable",
   "delete_var": "Delete variable",
-  "current_variable": "Current variable"
+  "current_variable": "Current variable",
   "restClient": {
     "title": "Client",
     "inputPlaceholder": "Enter URL or paste text (required)*",
