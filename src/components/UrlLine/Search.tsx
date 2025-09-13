@@ -36,7 +36,7 @@ export const Search = () => {
         }
       });
 
-      let result = await sendRequest(method, url, body, headers);
+      let result = await sendRequest(method, url, body, headers, path);
 
       if (result.res === 'Server error') {
         result = {
