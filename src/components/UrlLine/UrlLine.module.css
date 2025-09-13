@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.input {
+  max-width: 100%;
+  min-width: 300px;
+  height: 32px;
+}
+
+.select {
+  width: 100px;
+}
+
+button.button-disable {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.content_input {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 300px);
+}
