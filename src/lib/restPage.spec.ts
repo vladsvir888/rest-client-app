@@ -78,10 +78,9 @@ describe('validation', () => {
     const variables = { id: '123' };
     const result = validation(url, '', 'url', '', variables);
     expect(result).toEqual({
-      error: true,
-      res: 'id',
+      error: false,
+      res: 'https://api.example.com/123',
       origin: url,
-      type: 'var',
     });
   });
 
@@ -91,10 +90,9 @@ describe('validation', () => {
     const variables = { id: '123' };
     const result = validation('', body, 'body', query, variables);
     expect(result).toEqual({
-      error: true,
-      res: 'id',
+      error: false,
+      res: '{\"id\": \"123\"}',
       origin: body,
-      type: 'var',
     });
   });
 
@@ -103,10 +101,9 @@ describe('validation', () => {
     const variables = { token: 'abc123' };
     const result = validation('', '', 'headers', query, variables);
     expect(result).toEqual({
-      error: true,
-      res: 'token',
+      error: false,
+      res: 'Authorization: Bearer abc123',
       origin: query,
-      type: 'var',
     });
   });
   it('should replace variables in URL correctly', () => {
@@ -114,10 +111,9 @@ describe('validation', () => {
     const variables = { id: '123' };
     const result = validation(url, '', 'url', '', variables);
     expect(result).toEqual({
-      error: true,
-      res: 'id',
+      error: false,
+      res: 'https://api.example.com/123',
       origin: url,
-      type: 'var',
     });
   });
 
@@ -160,10 +156,9 @@ describe('validation', () => {
     const variables = { id: '123' };
     const result = validation(url, '', 'url', '', variables);
     expect(result).toEqual({
-      error: true,
-      res: 'id',
+      error: false,
+      res: 'https://api.example.com/123',
       origin: 'https://api.example.com/{{id}}',
-      type: 'var',
     });
   });
   it('replace variables body', () => {
@@ -172,10 +167,9 @@ describe('validation', () => {
     const variables = { id: '123' };
     const result = validation('', body, 'body', query, variables);
     expect(result).toEqual({
-      error: true,
-      res: 'id',
+      error: false,
+      res: '{\"id\": \"123\"}',
       origin: body,
-      type: 'var',
     });
   });
 
@@ -186,9 +180,9 @@ describe('validation', () => {
     const result = validation('', body, 'body', query, variables);
     expect(result).toEqual({
       error: true,
-      res: 'id',
+      res: 'jsonError',
       origin: '{"id": "{{id}}',
-      type: 'var',
+      type: 'json',
     });
   });
 
@@ -223,10 +217,9 @@ describe('validation', () => {
     const variables = { id: '123' };
     const result = validation('', body, 'body', query, variables);
     expect(result).toEqual({
-      error: true,
-      res: 'id',
+      error: false,
+      res: '{"id": "123"}',
       origin: '{"id": "{{id}}"}',
-      type: 'var',
     });
   });
   it('should replace variables in headers correctly', () => {
@@ -234,10 +227,9 @@ describe('validation', () => {
     const variables = { token: 'abc123' };
     const result = validation('', '', 'headers', query, variables);
     expect(result).toEqual({
-      error: true,
-      res: 'token',
+      error: false,
+      res: 'Authorization: Bearer abc123',
       origin: query,
-      type: 'var',
     });
   });
 
@@ -269,10 +261,9 @@ describe('validation', () => {
     const variables = { token: 'abc123' };
     const result = validation('', '', 'headers', query, variables);
     expect(result).toEqual({
-      error: true,
-      res: 'token',
+      error: false,
+      res: 'Authorization: Bearer abc123',
       origin: 'Authorization: Bearer {{token}}',
-      type: 'var',
     });
   });
   it('empty variable', () => {
@@ -293,10 +284,9 @@ describe('validation', () => {
     const variables = { greeting: 'Hello', name: 'Alice' };
     const result = validation('', body, 'body', query, variables);
     expect(result).toEqual({
-      error: true,
-      res: 'greeting, name',
+      error: false,
+      res: '{"greeting": "Hello", "name": "Alice"}',
       origin: body,
-      type: 'var',
     });
   });
 

@@ -46,7 +46,7 @@ export const InputUrl: FC<InputUrlProps> = ({ url }) => {
     setInputError('');
 
     timerId.current = setTimeout(() => {
-      const variables = localStorage.getItem('asd') || '{ "foo": "{{BAR}}" }';
+      const variables = localStorage.getItem('asd') || '{ "a": "123" }';
 
       const res = validation(value, '', 'url', '', JSON.parse(variables));
 

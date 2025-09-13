@@ -157,7 +157,7 @@ export const Body: FC<BodyProps> = ({ body }) => {
   return (
     <div className={cls.wrapper}>
       <div className={cls.tittle}>
-        <h3>{t('body')}: </h3>
+        <h3 className={cls.header}>{t('body')}: </h3>
         <Select
           value={selectBody}
           className={cls.select}

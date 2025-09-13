@@ -88,7 +88,7 @@ export const CodeGenerator = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
-        <h3>{t('code')}: </h3>
+        <h3 className={styles.header}>{t('code')}: </h3>
         <Select
           disabled={disabled}
           defaultValue="none"
