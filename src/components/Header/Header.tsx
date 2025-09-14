@@ -9,7 +9,7 @@ const { Header: AntHeader } = Layout;
 const { useBreakpoint } = Grid;
 const { Title } = Typography;
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const [current, setCurrent] = useState('home');
   const screens = useBreakpoint();
 
