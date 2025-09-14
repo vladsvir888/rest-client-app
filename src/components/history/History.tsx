@@ -8,11 +8,16 @@ import TextLink from '../text-link/TextLink';
 import { Button } from 'antd';
 import { useRouter } from 'next/navigation';
 import { THistory } from '@/types/types';
+import { use } from 'react';
+import { RestClientContext } from '../RestClientProvider/RestClientProvider';
+import { useTranslations } from 'next-intl';
 
 const { Paragraph, Title } = Typography;
 
 export default function History({ history }: { history: THistory[] }) {
   const router = useRouter();
+  const { setResponse } = use(RestClientContext);
+  const t = useTranslations();
 
   if (!history.length)
     return (
@@ -22,25 +27,33 @@ export default function History({ history }: { history: THistory[] }) {
       </Flex>
     );
 
-  const columns: TableProps<THistory>['columns'] = Object.keys(history[0]).map((key) => {
-    if (key === 'path')
+  const columns: TableProps<THistory>['columns'] = Object.keys(history[0])
+    .filter((key) => key !== 'answer')
+    .map((key) => {
+      if (key === 'path')
+        return {
+          title: key,
+          dataIndex: key,
+          key,
+          render: (_, record) => (
+            <Button
+              type="link"
+              onClick={() => {
+                setResponse?.(record.answer);
+                router.push(record.path);
+              }}
+            >
+              {record.path}
+            </Button>
+          ),
+        };
+
       return {
         title: key,
         dataIndex: key,
         key,
-        render: (_, record) => (
-          <Button type="link" onClick={() => router.push(record.path)}>
-            {record.path}
-          </Button>
-        ),
       };
-
-    return {
-      title: key,
-      dataIndex: key,
-      key,
-    };
-  });
+    });
 
   const data: THistory[] = history
     .map((item, index) => ({
@@ -52,7 +65,7 @@ export default function History({ history }: { history: THistory[] }) {
 
   return (
     <>
-      <Title style={{ textAlign: 'center' }}>History Requests</Title>
+      <Title style={{ textAlign: 'center' }}>{t('history_requests')}</Title>
       <Table<THistory>
         columns={columns}
         dataSource={data}

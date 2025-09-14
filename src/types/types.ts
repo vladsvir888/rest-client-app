@@ -14,4 +14,8 @@ export type THistory = {
   errorDetails: string;
   url: string;
   path: string;
+  answer: {
+    status: number;
+    res: string;
+  };
 };

@@ -36,7 +36,8 @@ export const Search = () => {
         }
       });
 
-      let result = await sendRequest(method, url, body, headers, path);
+      const link = `${window.location.pathname}${window.location.search}`;
+      let result = await sendRequest(method, url, body, headers, link);
 
       if (result.res === 'Server error') {
         result = {

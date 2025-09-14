@@ -41,6 +41,10 @@ export async function sendRequest(
         errorDetails,
         url,
         path,
+        answer: {
+          status: res.status,
+          res: errorDetails,
+        },
       });
       return { status: res.status, res: errorDetails };
     }
@@ -57,6 +61,10 @@ export async function sendRequest(
         errorDetails,
         url,
         path,
+        answer: {
+          status: res.status,
+          res: errorDetails,
+        },
       });
       return { status: res.status, res: errorDetails };
     }
@@ -74,6 +82,10 @@ export async function sendRequest(
       errorDetails,
       url,
       path,
+      answer: {
+        status: res.status,
+        res: answer,
+      },
     });
 
     return { status: res.status, res: answer };
@@ -89,6 +101,10 @@ export async function sendRequest(
       errorDetails,
       url,
       path,
+      answer: {
+        status: -1,
+        res: errorDetails,
+      },
     });
     return { status: -1, res: errorDetails };
   }
