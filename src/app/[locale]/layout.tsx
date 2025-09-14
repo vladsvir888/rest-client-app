@@ -7,6 +7,7 @@ import '@ant-design/v5-patch-for-react-19';
 import { Providers } from '../providers';
 import { Header } from '@/components/Header/Header';
 import { checkAuth } from '../actions/auth';
+import { Footer } from '@/components/Footer/Footer';
 
 type Props = {
   children: React.ReactNode;
@@ -32,6 +33,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <Providers>
             <Header user={user.authenticated} />
             <div className="wrapper">{children}</div>
+            <Footer />
           </Providers>
         </NextIntlClientProvider>
       </body>

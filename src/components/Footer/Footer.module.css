@@ -1,0 +1,14 @@
+.footer {
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.author {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
