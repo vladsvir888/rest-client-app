@@ -28,7 +28,7 @@ export default function History({ history }: { history: THistory[] }) {
     );
 
   const columns: TableProps<THistory>['columns'] = Object.keys(history[0])
-    .filter((key) => key !== 'answer')
+    .filter((key) => key !== 'answer' && key !== 'userEmail')
     .map((key) => {
       if (key === 'path')
         return {

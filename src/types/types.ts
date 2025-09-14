@@ -18,4 +18,5 @@ export type THistory = {
     status: number;
     res: string;
   };
+  userEmail?: string;
 };
