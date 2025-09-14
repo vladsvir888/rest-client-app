@@ -1,19 +1,9 @@
-import VariableInfo from '@/components/VariableInfo';
-import AuthRoute from '@/components/auth/AuthRoute';
-import { checkAuth } from '@/app/actions/auth';
-import VariableTitle from '@/components/VariableTitle';
+import dynamic from 'next/dynamic';
 
-export default async function Variables() {
-  const { userEmail } = await checkAuth();
+const VariablePage = dynamic(() =>
+  import('../../../components/Variables/Variables').then((mod) => mod.default)
+);
 
-  return (
-    <AuthRoute>
-      <div className="container">
-        <div className="private-layout">
-          <VariableTitle />
-          <VariableInfo authUser={userEmail as string} />
-        </div>
-      </div>
-    </AuthRoute>
-  );
+export default async function Page() {
+  return <VariablePage />;
 }
