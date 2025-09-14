@@ -7,6 +7,10 @@ import { usePathname } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
 import { act } from 'react';
 
+vi.mock('@/app/actions/history.ts', () => ({
+  addHistory: vi.fn(),
+}));
+
 vi.mock('@/app/api/sendRequest');
 vi.mock('next/navigation', () => ({
   usePathname: vi.fn(),
