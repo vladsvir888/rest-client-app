@@ -21,8 +21,22 @@ const { Title } = Typography;
 export const Header: FC<HeaderProps> = ({ user }) => {
   const [current, setCurrent] = useState('');
   const screens = useBreakpoint();
+  const [isSticky, setIsSticky] = useState(false);
 
   const path = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsSticky(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const parsePath = path.split('/');
@@ -36,7 +50,17 @@ export const Header: FC<HeaderProps> = ({ user }) => {
   const isMobile = !screens.md;
 
   return (
-    <AntHeader style={{ paddingLeft: 10, paddingRight: 10 }}>
+    <AntHeader
+      style={{
+        paddingLeft: 10,
+        paddingRight: 10,
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
+        height: isSticky ? '64px' : '74px',
+        background: isSticky ? '#03213d' : '',
+      }}
+    >
       <div className={cls.header}>
         <Title
           level={3}
