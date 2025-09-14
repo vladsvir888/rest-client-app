@@ -1,57 +1,64 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Layout, Grid, Typography } from 'antd';
-import DesktopMenu from './DesktopMenu';
-import MobileMenu from './MobileMenu';
+import { FC, useEffect, useState } from 'react';
+import { Layout, Grid, Typography, MenuProps } from 'antd';
+import { DesktopMenu } from './DesktopMenu';
+import { MobileMenu } from './MobileMenu';
+import cls from './Header.module.css';
+import { AntCloudOutlined } from '@ant-design/icons';
+import { LanguageSwitcher } from '../LanguageSwitcher';
+import { CustomLink } from '../CustomLink/CustomLink';
+import { usePathname } from '@/i18n/navigation';
+
+interface HeaderProps {
+  user: boolean;
+}
 
 const { Header: AntHeader } = Layout;
 const { useBreakpoint } = Grid;
 const { Title } = Typography;
 
-export const Header: React.FC = () => {
-  const [current, setCurrent] = useState('home');
+export const Header: FC<HeaderProps> = ({ user }) => {
+  const [current, setCurrent] = useState('');
   const screens = useBreakpoint();
 
-  const handleMenuClick = (e: any) => {
+  const path = usePathname();
+
+  useEffect(() => {
+    const parsePath = path.split('/');
+    setCurrent(parsePath[1]);
+  }, [path]);
+
+  const handleMenuClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
   };
 
   const isMobile = !screens.md;
 
   return (
-    <AntHeader
-      style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 20px',
-        background: '#fff',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-        height: '64px',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+    <AntHeader style={{ paddingLeft: 10, paddingRight: 10 }}>
+      <div className={cls.header}>
         <Title
           level={3}
           style={{
-            margin: 0,
-            marginRight: '20px',
             color: '#1890ff',
+            alignItems: 'center',
+            margin: 0,
           }}
         >
-          Мой Сайт
+          <CustomLink href="/">
+            <AntCloudOutlined />
+          </CustomLink>
         </Title>
-      </div>
 
-      {!isMobile ? (
-        <DesktopMenu current={current} onClick={handleMenuClick} />
-      ) : (
-        <MobileMenu current={current} onClick={handleMenuClick} />
-      )}
+        {!isMobile ? (
+          <DesktopMenu user={user} current={current} onClick={handleMenuClick} />
+        ) : (
+          <MobileMenu user={user} current={current} onClick={handleMenuClick} />
+        )}
+
+        <LanguageSwitcher />
+      </div>
     </AntHeader>
   );
 };
