@@ -42,5 +42,6 @@
   "restful": "RESTful",
   "history": "История",
   "variables": "Переменные",
-  "welcome": "Добро пожаловать"
+  "welcome": "Добро пожаловать",
+  "history_requests": "История запросов"
 }

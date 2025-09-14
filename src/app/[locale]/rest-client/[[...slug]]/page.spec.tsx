@@ -31,6 +31,7 @@ vi.mock('firebase-admin', () => ({
     credential: {
       cert: vi.fn(() => 'mock-certificate'),
     },
+    firestore: vi.fn(),
   },
 }));
 
