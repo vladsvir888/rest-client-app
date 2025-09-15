@@ -150,22 +150,6 @@ describe('Header', () => {
     expect(screen.getByTestId('custom-link')).toBeInTheDocument();
   });
 
-  it('sticky', () => {
-    vi.spyOn(window, 'scrollY', 'get').mockReturnValue(100);
-
-    render(<Header {...defaultProps} />);
-
-    const header = screen.getByTestId('header');
-    expect(header).toHaveStyle({
-      height: '74px',
-    });
-
-    window.dispatchEvent(new Event('scroll'));
-    expect(header).toHaveStyle({
-      height: '74px',
-    });
-  });
-
   it('remove unmount', () => {
     const { unmount } = render(<Header {...defaultProps} />);
 

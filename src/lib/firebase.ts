@@ -25,5 +25,6 @@ const firebaseClientConfig = {
 const app = !getApps().length ? initializeApp(firebaseClientConfig) : getApp();
 
 export const auth = getAuth(app);
+export const db = admin.firestore();
 
 export { admin };

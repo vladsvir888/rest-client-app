@@ -1,6 +1,10 @@
 import { sendRequest } from './sendRequest';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
+vi.mock('../actions/history.ts', () => ({
+  addHistory: vi.fn(),
+}));
+
 const mockFetch = vi.fn();
 global.fetch = mockFetch;
 
@@ -23,7 +27,9 @@ describe('sendRequest', () => {
       'Content-Type': 'application/json',
     });
 
-    const result = await sendRequest(method, url, body, headers);
+    const link =
+      '/en/rest-client/GET/aHR0cHMlM0ElMkYlMkZqc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tJTJGcG9zdHMlMkYx/';
+    const result = await sendRequest(method, url, body, headers, link);
 
     expect(mockFetch).toHaveBeenCalledWith(url, {
       method: 'GET',
@@ -48,7 +54,9 @@ describe('sendRequest', () => {
       'Content-Type': 'application/json',
     });
 
-    const result = await sendRequest(method, url, body, headers);
+    const link =
+      '/en/rest-client/GET/aHR0cHMlM0ElMkYlMkZqc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tJTJGcG9zdHMlMkYx/';
+    const result = await sendRequest(method, url, body, headers, link);
 
     expect(mockFetch).toHaveBeenCalledWith(url, {
       method: 'POST',
@@ -71,7 +79,9 @@ describe('sendRequest', () => {
     const body = '';
     const headers = new Headers();
 
-    const result = await sendRequest(method, url, body, headers);
+    const link =
+      '/en/rest-client/GET/aHR0cHMlM0ElMkYlMkZqc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tJTJGcG9zdHMlMkYx/';
+    const result = await sendRequest(method, url, body, headers, link);
 
     expect(result).toEqual({ status: 500, res: 'Server error' });
   });
@@ -88,7 +98,9 @@ describe('sendRequest', () => {
     const body = '';
     const headers = new Headers();
 
-    const result = await sendRequest(method, url, body, headers);
+    const link =
+      '/en/rest-client/GET/aHR0cHMlM0ElMkYlMkZqc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tJTJGcG9zdHMlMkYx/';
+    const result = await sendRequest(method, url, body, headers, link);
 
     expect(result).toEqual({ status: 404, res: 'Invalid request' });
   });
@@ -101,7 +113,9 @@ describe('sendRequest', () => {
     const body = '';
     const headers = new Headers();
 
-    const result = await sendRequest(method, url, body, headers);
+    const link =
+      '/en/rest-client/GET/aHR0cHMlM0ElMkYlMkZqc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tJTJGcG9zdHMlMkYx/';
+    const result = await sendRequest(method, url, body, headers, link);
 
     expect(result).toEqual({ status: -1, res: 'Network error. Could not send request' });
   });
@@ -120,7 +134,9 @@ describe('sendRequest', () => {
       'Content-Type': 'application/json',
     });
 
-    const result = await sendRequest(method, url, body, headers);
+    const link =
+      '/en/rest-client/GET/aHR0cHMlM0ElMkYlMkZqc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tJTJGcG9zdHMlMkYx/';
+    const result = await sendRequest(method, url, body, headers, link);
 
     expect(mockFetch).toHaveBeenCalledWith(url, {
       method: 'PUT',
@@ -143,7 +159,9 @@ describe('sendRequest', () => {
     const body = '';
     const headers = new Headers();
 
-    const result = await sendRequest(method, url, body, headers);
+    const link =
+      '/en/rest-client/GET/aHR0cHMlM0ElMkYlMkZqc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tJTJGcG9zdHMlMkYx/';
+    const result = await sendRequest(method, url, body, headers, link);
 
     expect(mockFetch).toHaveBeenCalledWith(url, {
       method: 'DELETE',
@@ -166,7 +184,9 @@ describe('sendRequest', () => {
     const body = '';
     const headers = new Headers();
 
-    const result = await sendRequest(method, url, body, headers);
+    const link =
+      '/en/rest-client/GET/aHR0cHMlM0ElMkYlMkZqc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tJTJGcG9zdHMlMkYx/';
+    const result = await sendRequest(method, url, body, headers, link);
 
     expect(result).toEqual({ status: 200, res: '' });
   });

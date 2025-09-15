@@ -65,5 +65,7 @@
     "13": "Developed the main page, header/footer, page with variables.",
     "14": "Implemented functions for storing variables in LocalStorage, as well as adding and deleting variables.",
     "15": "Added support for 2 languages."
-  }
+  },
+
+  "history_requests": "History Requests"
 }
