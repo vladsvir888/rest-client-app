@@ -1,0 +1,16 @@
+.header {
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  height: 64px;
+  width: 100%;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.mobile {
+  width: 100%;
+  justify-content: space-around;
+}

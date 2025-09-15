@@ -43,5 +43,29 @@
   "history": "History",
   "variables": "Variables",
   "welcome": "Welcome",
+  "main": {
+    "developers": "Developers",
+    "titleDescribe": "Course on modern React development",
+    "describeSchool": " RS School is a free educational program with a practical focus. The course covers modern approaches to React development including hooks, TypeScript, testing, and performance optimization.",
+    "title": "REST Client",
+    "project": "The project is the development of a lightweight clone of Postman — a web application for testing REST API. Key features include HTTP request composition, user authentication system, working with variables, and maintaining call history. The technical stack is based on the modern React framework Next.js with mandatory use of TypeScript. The development is carried out by a team of three people using testing practices and strict requirements for code style and design.",
+    "0": "Developed RESTful client pages and history.",
+    "1": "Implemented debounce to reduce the amount of rerendering.",
+    "2": "Implemented auto-generation of code via postman-codegen.",
+    "3": "Implemented display of the response from the server.",
+    "4": "Implemented support for variables in queries.",
+    "5": "Implemented query history using Firestore DB for storage and recovery.",
+    "6": "Developed a login and register page.",
+    "7": "Added adaptive navigation to the header for mobile or desktop devices.",
+    "8": "Implemented Firebase for authentication.",
+    "9": "Implemented login and registration forms.",
+    "10": "Set up password validation.",
+    "11": "Implemented redirection upon successful login.",
+    "12": "Set up route protection.",
+    "13": "Developed the main page, header/footer, page with variables.",
+    "14": "Implemented functions for storing variables in LocalStorage, as well as adding and deleting variables.",
+    "15": "Added support for 2 languages."
+  },
+
   "history_requests": "History Requests"
 }
