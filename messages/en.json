@@ -54,7 +54,7 @@
     "2": "Implemented auto-generation of code via postman-codegen.",
     "3": "Implemented display of the response from the server.",
     "4": "Implemented support for variables in queries.",
-    "5": "Implemented query history using LocalStorage for storage and recovery.",
+    "5": "Implemented query history using Firestore DB for storage and recovery.",
     "6": "Developed a login and register page.",
     "7": "Added adaptive navigation to the header for mobile or desktop devices.",
     "8": "Implemented Firebase for authentication.",
