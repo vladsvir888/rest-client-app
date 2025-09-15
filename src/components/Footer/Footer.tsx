@@ -27,7 +27,7 @@ const authors = [
 
 export const Footer: FC = () => {
   return (
-    <AntFooter>
+    <AntFooter style={{ backgroundColor: '#cad5e2' }}>
       <div className={cls.footer}>
         {authors.map((el) => (
           <AntLink

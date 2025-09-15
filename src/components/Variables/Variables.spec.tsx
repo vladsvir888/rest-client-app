@@ -63,7 +63,7 @@ describe('Variables', () => {
   });
 
   it('call checkAuth', async () => {
-    await render(await Variables());
+    render(await Variables());
 
     expect(checkAuth).toHaveBeenCalledTimes(1);
   });

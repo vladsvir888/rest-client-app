@@ -1,5 +1,5 @@
 :root {
-  --background: #ffffff;
+  --background: #f1f5f9;
   --foreground: #171717;
 }
 
@@ -47,5 +47,10 @@ h3 {
 }
 
 .wrapper {
-  margin: 20px 0;
+  padding: 10px;
+  width: 100%;
+  max-width: 1400px;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
