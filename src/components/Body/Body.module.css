@@ -1,0 +1,22 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tittle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0;
+}
+
+.select {
+  width: 130px;
+}
+
+.header {
+  margin: 0;
+}
